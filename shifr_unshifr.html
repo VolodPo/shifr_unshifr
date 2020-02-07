@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>volodymyr</title>
+	<meta charset="utf-8">
+</head>
+<body>
+
+	<script type="text/javascript">
+
+		var info=prompt("Введіть слово");
+		var shSlovo=prompt("Введіть шифр-слово");		
+		var DeShSlovo=prompt("Введіть дешифр-слово");
+
+		var codUncod={
+			" ":"マ",
+			a:"赤",
+			b:"青",
+			c:"黄",
+			d:"色",
+			e:"緑",
+			f:"紫",
+			g:"黒",
+			h:"薄",
+			i:"漢",
+			j:"操",
+			k:"縦",
+			l:"銀",
+			m:"鯛",
+			n:"頭",
+			o:"坂",
+			p:"道",
+			q:"白",
+			r:"ま",
+			s:"光",
+			t:"ボ",
+			u:"沢",
+			v:"ぼ",
+			w:"が",
+			x:"サ",
+			y:"ス",
+			w:"カ",
+			z:"キ",
+			0:"オ",
+			1:"タ",
+			2:"ぎ",
+			3:"す",
+			4:"ダ",
+			5:"ザ",
+			6:"チ",
+			7:"木",
+			8:"ウ",
+			9:"ム",
+		};
+
+	
+	
+		//БЛОК ШИФРУВАННЯ
+		var arr=info.split("");//перетворюємо слово в масив	
+		var arrHash=[]; //масив для вже зашифрованого слова
+		var arrShSlovo=shSlovo.split("");//перетворюємо шифр-слово в масив
+		var arrHashHash=[]; //масив для вже зашифрованого шифр-слова
+
+		//шифруємо шифр-слово, створюємо масив з зашифрованих знаків
+		arrShSlovo.forEach(function(arr,item) {			
+			arrHashHash[item]=codUncod[arr];
+		});
+
+
+		var i=0; 
+		//Шифруємо слово та додатково кодуємо його шифр-словом створюємо масив з зашифрованих знаків
+		arr.forEach(function(arr,item) {
+			arrHash[item*2]=codUncod[arr];
+			if (i<=(arrHashHash.length-1)) {
+				arrHash[item*2+1]=arrHashHash[i++];								
+			} else {
+				i=0;
+				arrHash[item*2+1]=arrHashHash[i++];			 
+			}
+		});
+
+		//Перетворюємо зашифрований масив в строку. Кінцевий результат шифрування
+		var HashHash=arrHash.join("");
+
+
+		console.log("Ваше слово для додаткового шифрування: "+shSlovo);
+		console.log("Ваше слово для розшифрування: "+DeShSlovo);
+		console.log("ЗАШИФРОВАНЕ слово: "+HashHash);
+
+
+
+
+		//БЛОК РОЗШИФРУВАННЯ
+		var qwe=confirm("Бажаєте рошифрувати слово?");		
+		if(qwe==true){
+			var qweSlovo=prompt("Ведіть зашифроване слово");
+			if(qweSlovo==HashHash){
+				var inp=prompt("Введіть ключ-слово розшифрування")
+				if(inp==DeShSlovo){
+					var arrShifr=HashHash.split("").filter(function(item, index) {
+						return index%2==0;
+					});
+
+						var arrDeShifr=[];
+							arrShifr.forEach(function(item, index){
+								for (var jem in codUncod) {
+									if(codUncod[jem]==item){
+										arrDeShifr[index]=jem;				
+									}
+								}			
+							});
+						var DeShifr=arrDeShifr.join("");
+						console.log("Слово ", DeShifr);	
+					
+				} else alert("Дешифрувальне слово не вірне!")	
+			} else alert("Неправильно введено зашифроване слово!");
+		} else alert("На все добре!");		
+			
+	</script>
+
+</body>
+</html>
